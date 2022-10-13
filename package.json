@@ -1,0 +1,19 @@
+{
+  "name": "obrazek-programowanie-grafiki",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "https://tipikej.github.io/obrazek-programowanie-grafiki",
+  "scripts": {
+    "start": "cd ./public/ && live-server",
+    "deploy": "gh-pages -d public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tomasz Kumor",
+  "license": "ISC",
+  "devDependencies": {
+    "gh-pages": "^4.0.0",
+    "live-server": "^1.2.2"
+  }
+}
