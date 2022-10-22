@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>obrazek-programowanie-grafiki</title>
+</head>
+<body>
+
+    <div id="input-container">
+        <textarea id="input-textarea" cols="8" rows="8"></textarea>
+        <input type="submit" value="Sprawdź" id="input-submit">
+    </div>
+
+    <div id="output"></div>
+
+
+
+<script>
+
+(() => {
+    const inData = document.querySelector("#input-textarea");
+    const inSubmit = document.querySelector("#input-submit");
+    const output = document.querySelector("#output");
+
+    let prevData = "";
+    const textareaInputDataRegExp = /^(\d{0,8})(\n{1}\d{0,8}){0,7}$/;
+
+    const xWektor = [
+        0,0,1,1,1,1,0,0,
+        1,1,0,0,0,0,1,1,
+        1,0,0,1,1,0,0,1,
+        1,0,1,0,0,1,0,1,
+        1,0,1,0,0,1,0,1,
+        1,0,0,1,1,0,0,1,
+        1,1,0,0,0,0,1,1,
+        0,0,1,1,1,1,0,0,
+    ];
+    // const xWektor = [1,1,1,0,0];
+    // const yWektor = [0,0,1,1,1];
+
+    let macierzW = [];
+
+    inData.addEventListener('input', e => {
+        const val = e.target.value;
+        if (!textareaInputDataRegExp.test(val)) return inData.value = prevData;
+
+        prevData = val;
+    });
+
+    inSubmit.addEventListener('click', e => {
+        const wpisanyWektor = [...inData.value.replace(/\n/g, "")];
+        
+        output.innerHTML = '';
+        sprawdzWektora(wpisanyWektor).forEach((el, i) => {
+            if (!(i % 8)) output.innerHTML += '<br>';
+            output.innerHTML += el;
+        })
+    });
+
+    const W = (i, j, ...wektory) => {
+        if (i === j) return 0;
+
+        return wektory.map(wektor => (2 * wektor[i] - 1) * (2 * wektor[j] - 1)).reduce((a, b) => a + b);
+    }
+    
+    const sprawdzWektora = wektor => wektor.map((z, i) => {
+        const s = macierzW
+        .map((we, j) => macierzW[i][j] * wektor[j])
+        .reduce((x,y) => x + y);
+
+        if (s > 0) return 1;
+        if (s < 0) return 0;
+
+        return Number(z);
+    })
+
+    for (let i = 0; i < xWektor.length; i++) {
+        let tempW = [];
+        for (let j = 0; j < xWektor.length; j++) {
+            tempW.push(W(i, j, xWektor))
+            // tempW.push(W(i, j, xWektor, yWektor))
+        }
+        macierzW.push(tempW)
+    }
+
+})();
+
+</script>
+</body>
+</html>
