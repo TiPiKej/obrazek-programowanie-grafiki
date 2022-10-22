@@ -27,18 +27,20 @@
     let prevData = "";
     const textareaInputDataRegExp = /^(\d{0,8})(\n{1}\d{0,8}){0,7}$/;
 
-    // const xWektor = [
-    //     0,0,1,1,1,1,0,0,
-    //     0,1,0,0,0,0,1,1,
-    //     1,0,0,1,1,0,0,1,
-    //     1,0,1,0,0,1,0,1,
-    //     1,0,1,0,0,1,0,1,
-    //     1,0,0,1,1,0,0,1,
-    //     0,1,0,0,0,0,1,1,
-    //     0,0,1,1,1,1,0,0,
-    // ];
-    const xWektor = [1,1,1,0,0];
-    const yWektor = [0,0,1,1,1];
+    const xWektor = [
+        0,0,1,1,1,1,0,0,
+        1,1,0,0,0,0,1,1,
+        1,0,0,1,1,0,0,1,
+        1,0,1,0,0,1,0,1,
+        1,0,1,0,0,1,0,1,
+        1,0,0,1,1,0,0,1,
+        1,1,0,0,0,0,1,1,
+        0,0,1,1,1,1,0,0,
+    ];
+    // const xWektor = [1,1,1,0,0];
+    // const yWektor = [0,0,1,1,1];
+
+    let macierzW = [];
 
     inData.addEventListener('input', e => {
         const val = e.target.value;
@@ -48,14 +50,13 @@
     });
 
     inSubmit.addEventListener('click', e => {
-        let out = "";
-        for (let i = 0; i < xWektor.length; i++) {
-            for (let j = 0; j < yWektor.length; j++) {
-                out += W(i, j, xWektor, yWektor) + " ";
-            }
-            out += "<br>";
-        }
-        output.innerHTML = out;
+        const wpisanyWektor = [...inData.value.replace(/\n/g, "")];
+        
+        output.innerHTML = '';
+        sprawdzWektora(wpisanyWektor).forEach((el, i) => {
+            if (!(i % 8)) output.innerHTML += '<br>';
+            output.innerHTML += el;
+        })
     });
 
     const W = (i, j, ...wektory) => {
@@ -64,8 +65,25 @@
         return wektory.map(wektor => (2 * wektor[i] - 1) * (2 * wektor[j] - 1)).reduce((a, b) => a + b);
     }
     
+    const sprawdzWektora = wektor => wektor.map((z, i) => {
+        const s = macierzW
+        .map((we, j) => macierzW[i][j] * wektor[j])
+        .reduce((x,y) => x + y);
 
+        if (s > 0) return 1;
+        if (s < 0) return 0;
 
+        return Number(z);
+    })
+
+    for (let i = 0; i < xWektor.length; i++) {
+        let tempW = [];
+        for (let j = 0; j < xWektor.length; j++) {
+            tempW.push(W(i, j, xWektor))
+            // tempW.push(W(i, j, xWektor, yWektor))
+        }
+        macierzW.push(tempW)
+    }
 
 })();
 
