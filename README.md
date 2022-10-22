@@ -2,4 +2,5 @@
 
 # Program na programowanie grafiki
 
+
 Program używa sieci hopfielda
