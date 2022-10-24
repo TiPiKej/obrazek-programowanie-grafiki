@@ -5,6 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>obrazek-programowanie-grafiki</title>
+    <style>
+        * {
+            font-size: 1.5em;
+        }
+        body {
+            display: flex;
+            flex-direction: row;
+        }
+        #output {
+            display: flex;
+        }
+    </style>
 </head>
 <body>
 
@@ -64,7 +76,7 @@
         
         output.innerHTML = '';
         sprawdzWektora(wpisanyWektor).forEach((el, i) => {
-            if (!(i % 8)) output.innerHTML += '<br>';
+            if (!(i % 8) && i !== 0) output.innerHTML += '<br>';
             output.innerHTML += el;
         })
     });
