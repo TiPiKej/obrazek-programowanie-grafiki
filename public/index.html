@@ -37,18 +37,18 @@
     const output = document.querySelector("#output");
 
     let prevData = "";
-    const textareaInputDataRegExp = /^(\d{0,8})(\n{1}\d{0,8}){0,7}$/;
+    const textareaInputDataRegExp = /^(\d{0,7})$/;
 
-    const xWektor = [
-        1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,
-        1,1,0,0,0,0,1,1,
-        1,1,0,0,0,0,1,1,
-        1,1,0,0,0,0,1,1,
-        1,1,0,0,0,0,1,1,
-        1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,
-    ];
+    // const xWektor = [
+    //     1,1,1,1,1,1,1,1,
+    //     1,1,1,1,1,1,1,1,
+    //     1,1,0,0,0,0,1,1,
+    //     1,1,0,0,0,0,1,1,
+    //     1,1,0,0,0,0,1,1,
+    //     1,1,0,0,0,0,1,1,
+    //     1,1,1,1,1,1,1,1,
+    //     1,1,1,1,1,1,1,1,
+    // ];
     // const xWektor = [
     //     0,0,1,1,1,1,0,0,
     //     1,1,0,0,0,0,1,1,
@@ -59,8 +59,8 @@
     //     1,1,0,0,0,0,1,1,
     //     0,0,1,1,1,1,0,0,
     // ];
-    // const xWektor = [1,1,1,0,0];
-    // const yWektor = [0,0,1,1,1];
+    const xWektor = [1,0,0,1,1,0,1];
+    const yWektor = [1,1,1,0,1,0,0];
 
     let macierzW = [];
 
@@ -101,8 +101,8 @@
     for (let i = 0; i < xWektor.length; i++) {
         let tempW = [];
         for (let j = 0; j < xWektor.length; j++) {
-            tempW.push(W(i, j, xWektor))
-            // tempW.push(W(i, j, xWektor, yWektor))
+            // tempW.push(W(i, j, xWektor))
+            tempW.push(W(i, j, xWektor, yWektor))
         }
         macierzW.push(tempW)
     }
